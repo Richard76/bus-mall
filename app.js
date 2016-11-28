@@ -1,6 +1,20 @@
 'use strict';
 
 
+/*
+var pic1 = new Picture('bag.jpg', 'one');
+var pic2 = new Picture('banana.jpg', 'two');
+var pic3 = new Picture('bathroom.jpg', 'three');
+
+
+function Picture(url, id) {
+  this.url = url;
+  this.id = id;
+}
+*/
+
+
+
 var paths = [
   'bag.jpg' , 'banana.jpg' , 'bathroom.jpg', 'boots.jpg',
   'breakfast.jpg' , 'bubblegum.jpg' , 'chair.jpg' , 'cthulhu.jpg',
@@ -9,14 +23,9 @@ var paths = [
   'unicorn.jpg' , 'usb.gif' , 'water-can.jpg' , 'wine-glass.jpg'
 ];
 
-
-
 var items = [];
 var displayIndex = 0;
 
-var displayArea1 = document.getElementById('image1');
-var displayArea2 = document.getElementById('image2');
-var displayArea3 = document.getElementById('image3');
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -29,15 +38,15 @@ function ItemImage(path) {
 }
 
 
+var displayArea1 = document.getElementById('image1');
+var displayArea2 = document.getElementById('image2');
+var displayArea3 = document.getElementById('image3');
 
+displayArea1.addEventListener('click', clickHandler);
+displayArea2.addEventListener('click', clickHandler);
+displayArea3.addEventListener('click', clickHandler);
 
-
-
-displayArea1.addEventListener('click', clickHandler1);
-displayArea2.addEventListener('click', clickHandler2);
-displayArea3.addEventListener('click', clickHandler3);
-
-function clickHandler1(event) {
+function clickHandler(event) {
   var targetString = event.target.src;
   var targetPath = targetString.split('images')[1];
   var itemPath;
@@ -50,42 +59,9 @@ function clickHandler1(event) {
   }
 
   changePicture1();
-}
-
-
-
-function clickHandler2(event) {
-  var targetString = event.target.src;
-  var targetPath = targetString.split('images')[1];
-  var itemPath;
-
-  for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('img')[1];
-    if (itemPath === targetPath) {
-      items[i].clicked += 1;
-    }
-  }
-
   changePicture2();
-}
-
-
-
-function clickHandler3(event) {
-  var targetString = event.target.src;
-  var targetPath = targetString.split('images')[1];
-  var itemPath;
-
-  for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('img')[1];
-    if (itemPath === targetPath) {
-      items[i].clicked += 1;
-    }
-  }
-
   changePicture3();
 }
-
 
 
 
@@ -108,7 +84,7 @@ function changePicture1() {
 
 
 function changePicture2() {
-  var image1 = document.getElementById('image2');
+  var image2 = document.getElementById('image2');
   var randomIndex = generateRandomNumber();
 
   while (displayIndex === randomIndex) {
@@ -116,7 +92,7 @@ function changePicture2() {
   }
 
   displayIndex = randomIndex;
-  image1.src = 'img/' + paths[randomIndex];
+  image2.src = 'img/' + paths[randomIndex];
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
@@ -125,7 +101,7 @@ function changePicture2() {
 
 
 function changePicture3() {
-  var image1 = document.getElementById('image3');
+  var image3 = document.getElementById('image3');
   var randomIndex = generateRandomNumber();
 
   while (displayIndex === randomIndex) {
@@ -133,7 +109,7 @@ function changePicture3() {
   }
 
   displayIndex = randomIndex;
-  image1.src = 'img/' + paths[randomIndex];
+  image3.src = 'img/' + paths[randomIndex];
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
