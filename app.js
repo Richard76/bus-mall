@@ -1,7 +1,16 @@
 'use strict';
 
 
-var paths = ['sweep.png', 'dog-duck.jpg', 'breakfast.jpg'];
+var paths = [
+  'bag.jpg' , 'banana.jpg' , 'bathroom.jpg', 'boots.jpg',
+  'breakfast.jpg' , 'bubblegum.jpg' , 'chair.jpg' , 'cthulhu.jpg',
+  'dog-duck.jpg' , 'dragon.jpg' , 'pen.jpg' , 'pet-sweep.jpg',
+  'scissors.jpg' , 'shark.jpg' , 'sweep.png' , 'tauntaun.jpg',
+  'unicorn.jpg' , 'usb.gif' , 'water-can.jpg' , 'wine-glass.jpg'
+];
+
+
+
 var items = [];
 var displayIndex = 0;
 
@@ -16,11 +25,11 @@ displayArea.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
   var targetString = event.target.src;
-  var targetPath = targetString.split('assets')[1];
+  var targetPath = targetString.split('images')[1];
   var itemPath;
 
   for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('assets')[1];
+    itemPath = items[i].path.split('images')[1];
     if (itemPath === targetPath) {
       items[i].clicked += 1;
     }
@@ -30,7 +39,7 @@ function clickHandler(event) {
 }
 
 function ItemImage(path) {
-  this.path = '../lab/assets/' + path;
+  this.path = 'images/' + path;
   this.clicked = 0;
 }
 
@@ -43,7 +52,7 @@ function changePicture() {
   }
 
   displayIndex = randomIndex;
-  imageOne.src = '../lab/assets/' + paths[randomIndex];
+  imageOne.src = 'images/' + paths[randomIndex];
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
