@@ -14,7 +14,7 @@ var paths = [
 var items = [];
 var displayIndex = 0;
 
-var displayArea = document.getElementById('image_area');
+var displayArea = document.getElementById('image1');
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -29,7 +29,7 @@ function clickHandler(event) {
   var itemPath;
 
   for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('images')[1];
+    itemPath = items[i].path.split('img')[1];
     if (itemPath === targetPath) {
       items[i].clicked += 1;
     }
@@ -39,12 +39,12 @@ function clickHandler(event) {
 }
 
 function ItemImage(path) {
-  this.path = 'images/' + path;
+  this.path = 'img/' + path;
   this.clicked = 0;
 }
 
 function changePicture() {
-  var imageOne = document.getElementById('image_one');
+  var image1 = document.getElementById('image1');
   var randomIndex = generateRandomNumber();
 
   while (displayIndex === randomIndex) {
@@ -52,7 +52,7 @@ function changePicture() {
   }
 
   displayIndex = randomIndex;
-  imageOne.src = 'images/' + paths[randomIndex];
+  image1.src = 'img/' + paths[randomIndex];
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
