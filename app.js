@@ -120,10 +120,10 @@ var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Richard'],
     datasets: [{
-      label: '# of Votes',
-      data: [1, 4, 3, 5, 2, 3],
+      data: [1, 4, 3, 5, 2, 3, 7],
+      label: '# of Clicks',
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -140,7 +140,7 @@ var myChart = new Chart(ctx, {
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)'
       ],
-      borderWidth: 1
+      borderWidth: 2
     }]
   },
   options: {
