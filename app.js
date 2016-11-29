@@ -1,20 +1,5 @@
 'use strict';
 
-
-/*
-var pic1 = new Picture('bag.jpg', 'one');
-var pic2 = new Picture('banana.jpg', 'two');
-var pic3 = new Picture('bathroom.jpg', 'three');
-
-
-function Picture(url, id) {
-  this.url = url;
-  this.id = id;
-}
-*/
-
-
-
 var paths = [
   'bag.jpg' , 'banana.jpg' , 'bathroom.jpg', 'boots.jpg',
   'breakfast.jpg' , 'bubblegum.jpg' , 'chair.jpg' , 'cthulhu.jpg',
@@ -27,25 +12,7 @@ var items = [];
 var currentImages = [0, 1, 2];
 var newRandomImage = [, , ];
 var clickNumber = 0;
-
-var timesImageDisplayed = [
-  1, 1, 1, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0
-];
-
-
-var timesImageClicked = [
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0
-];
-
-
+var timesClicked = [];
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -55,6 +22,7 @@ for(var i = 0; i < paths.length; i++) {
 function ItemImage(path) {
   this.path = 'img/' + path;
   this.clicked = 0;
+  this.shown = 0;
 }
 
 
@@ -68,22 +36,27 @@ displayArea3.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
   var targetString = event.target.src;
-  var targetPath = targetString.split('images')[1];
-  var itemPath;
+  var targetPath = targetString.split('/img/')[1];
+  //console.log('targetPath: ' + targetPath);
 
+  var itemPath;
   for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('img')[1];
+    itemPath = items[i].path.split('img/')[1];
+    //console.log('itemPath: ' + itemPath);
     if (itemPath === targetPath) {
       items[i].clicked += 1;
     }
   }
   updatePictures();
-  //changePicture1();
-  //changePicture2();
-  //changePicture3();
+
   clickNumber++;
-  console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
-  console.log('times imagages displayed: ' + clickNumber + '  ==> ' + timesImageDisplayed);
+  //console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
+
+  for (var j = 0; j < items.length; j++) {
+    console.log('item ' + j + ' clicked: ' + items[j].clicked + ' times');
+    //timesClicked[j].push(items[j].clicked);
+    //console.log(items.clicked);
+  }
 }
 
 function updatePictures() {
@@ -94,18 +67,29 @@ function updatePictures() {
   newRandomImage[1] = generateRandomNumber();
   newRandomImage[2] = generateRandomNumber();
 
-  while ( newRandomImage[0] === currentImages[0] ) {
+  while (
+    newRandomImage[0] === currentImages[0] ||
+    newRandomImage[0] === currentImages[1] ||
+    newRandomImage[0] === currentImages[2] ) {
     newRandomImage[0] = generateRandomNumber();
   }
   currentImages[0] = newRandomImage[0];
 
-  while ( newRandomImage[1] === currentImages[1] || newRandomImage[1] === newRandomImage[0]) {
+  while (
+    newRandomImage[1] === currentImages[0] ||
+    newRandomImage[1] === currentImages[1] ||
+    newRandomImage[1] === currentImages[2] ||
+    newRandomImage[1] === newRandomImage[0]) {
     newRandomImage[1] = generateRandomNumber();
   }
   currentImages[1] = newRandomImage[1];
-  //timesImageDisplayed.currentImages[1]++;
 
-  while (newRandomImage[2] === currentImages[2] || newRandomImage[2] === newRandomImage[1] || newRandomImage[2] === newRandomImage[0] ) {
+  while (
+    newRandomImage[2] === currentImages[0] ||
+    newRandomImage[2] === currentImages[1] ||
+    newRandomImage[2] === currentImages[2] ||
+    newRandomImage[2] === newRandomImage[0] ||
+    newRandomImage[2] === newRandomImage[1] ) {
     newRandomImage[2] = generateRandomNumber();
   }
   currentImages[2] = newRandomImage[2];
@@ -130,50 +114,3 @@ function updatePictures() {
 function generateRandomNumber() {
   return Math.floor(Math.random() * paths.length);
 }
-
-
-/*
-
-function changePicture1() {
-
-  var image1 = document.getElementById('image1');
-  var newRandomImage = generateRandomNumber();
-
-  while ( newRandomImage = randomImage[0] || displayIndex === randomImage[0]) {
-    newRandomImage = generateRandomNumber();
-  }
-  randomImage[0] = newRandomImage;
-  image1.src = 'img/' + paths[newRandomImage];
-}
-
-
-
-
-
-function changePicture2() {
-  var image2 = document.getElementById('image2');
-  randomImage[1] = generateRandomNumber();
-
-  while (randomImage[1] === randomImage[0]) {
-    randomImage[1] = generateRandomNumber();
-  }
-
-  displayIndex = randomImage[1];
-  image2.src = 'img/' + paths[displayIndex];
-  //console.log(randomImage);
-}
-
-
-function changePicture3() {
-  var image3 = document.getElementById('image3');
-  randomImage[2] = generateRandomNumber();
-
-  while (randomImage[2] === randomImage[0] || randomImage[2] === randomImage[1] ) {
-    randomImage[2] = generateRandomNumber();
-  }
-
-  displayIndex = randomImage[2];
-  image3.src = 'img/' + paths[displayIndex];
-}
-
-*/
