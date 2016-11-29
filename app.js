@@ -25,6 +25,15 @@ var paths = [
 
 var items = [];
 var displayIndex = 0;
+var threeThings = [0, 1, 2];
+var clickNumber = 0;
+var timesImageClicked = [
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0
+];
 
 
 for(var i = 0; i < paths.length; i++) {
@@ -61,21 +70,25 @@ function clickHandler(event) {
   changePicture1();
   changePicture2();
   changePicture3();
+  clickNumber++;
+  console.log('click number: ' + clickNumber + '  ==> ' + threeThings);
 }
 
 
 
 
 function changePicture1() {
+
   var image1 = document.getElementById('image1');
   var randomIndex = generateRandomNumber();
 
   while (displayIndex === randomIndex) {
     randomIndex = generateRandomNumber();
   }
-
   displayIndex = randomIndex;
   image1.src = 'img/' + paths[randomIndex];
+  threeThings[0] = displayIndex;
+  //console.log(threeThings);
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
@@ -83,16 +96,20 @@ function changePicture1() {
 }
 
 
+
+
 function changePicture2() {
   var image2 = document.getElementById('image2');
   var randomIndex = generateRandomNumber();
 
-  while (displayIndex === randomIndex) {
+  while (displayIndex === randomIndex || threeThings[1] === randomIndex) {
     randomIndex = generateRandomNumber();
   }
 
   displayIndex = randomIndex;
   image2.src = 'img/' + paths[randomIndex];
+  threeThings[1] = displayIndex;
+  //console.log(threeThings);
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
@@ -104,12 +121,15 @@ function changePicture3() {
   var image3 = document.getElementById('image3');
   var randomIndex = generateRandomNumber();
 
-  while (displayIndex === randomIndex) {
+  while (displayIndex === randomIndex || threeThings[2] === randomIndex || threeThings[2] === threeThings[1] ) {
     randomIndex = generateRandomNumber();
   }
 
   displayIndex = randomIndex;
   image3.src = 'img/' + paths[randomIndex];
+  threeThings[2] = displayIndex;
+  //console.log(threeThings);
+
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * paths.length);
