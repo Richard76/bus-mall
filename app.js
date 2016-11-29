@@ -27,14 +27,24 @@ var items = [];
 var currentImages = [0, 1, 2];
 var newRandomImage = [, , ];
 var clickNumber = 0;
-/*var timesImageClicked = [
+
+var timesImageDisplayed = [
+  1, 1, 1, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0
+];
+
+
+var timesImageClicked = [
   0, 0, 0, 0,
   0, 0, 0, 0,
   0, 0, 0, 0,
   0, 0, 0, 0,
   0, 0, 0, 0
 ];
-*/
+
 
 
 for(var i = 0; i < paths.length; i++) {
@@ -73,6 +83,7 @@ function clickHandler(event) {
   //changePicture3();
   clickNumber++;
   console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
+  console.log('times imagages displayed: ' + clickNumber + '  ==> ' + timesImageDisplayed);
 }
 
 function updatePictures() {
@@ -92,6 +103,7 @@ function updatePictures() {
     newRandomImage[1] = generateRandomNumber();
   }
   currentImages[1] = newRandomImage[1];
+  //timesImageDisplayed.currentImages[1]++;
 
   while (newRandomImage[2] === currentImages[2] || newRandomImage[2] === newRandomImage[1] || newRandomImage[2] === newRandomImage[0] ) {
     newRandomImage[2] = generateRandomNumber();
@@ -106,6 +118,8 @@ function updatePictures() {
 
   var displayIndex2 = currentImages[2];
   image3.src = 'img/' + paths[displayIndex2];
+
+
 }
 
 
