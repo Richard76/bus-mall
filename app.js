@@ -24,16 +24,17 @@ var paths = [
 ];
 
 var items = [];
-var displayIndex = 0;
-var threeThings = [0, 1, 2];
+var currentImages = [0, 1, 2];
+var newRandomImage = [, , ];
 var clickNumber = 0;
-var timesImageClicked = [
+/*var timesImageClicked = [
   0, 0, 0, 0,
   0, 0, 0, 0,
   0, 0, 0, 0,
   0, 0, 0, 0,
   0, 0, 0, 0
 ];
+*/
 
 
 for(var i = 0; i < paths.length; i++) {
@@ -66,72 +67,99 @@ function clickHandler(event) {
       items[i].clicked += 1;
     }
   }
-
-  changePicture1();
-  changePicture2();
-  changePicture3();
+  updatePictures();
+  //changePicture1();
+  //changePicture2();
+  //changePicture3();
   clickNumber++;
-  console.log('click number: ' + clickNumber + '  ==> ' + threeThings);
+  console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
+}
+
+function updatePictures() {
+//  var image1 = document.getElementById('image1');
+//  var image2 = document.getElementById('image2');
+//  var image3 = document.getElementById('image3');
+  newRandomImage[0] = generateRandomNumber();
+  newRandomImage[1] = generateRandomNumber();
+  newRandomImage[2] = generateRandomNumber();
+
+  while ( newRandomImage[0] === currentImages[0] ) {
+    newRandomImage[0] = generateRandomNumber();
+  }
+  currentImages[0] = newRandomImage[0];
+
+  while ( newRandomImage[1] === currentImages[1] || newRandomImage[1] === newRandomImage[0]) {
+    newRandomImage[1] = generateRandomNumber();
+  }
+  currentImages[1] = newRandomImage[1];
+
+  while (newRandomImage[2] === currentImages[2] || newRandomImage[2] === newRandomImage[1] || newRandomImage[2] === newRandomImage[0] ) {
+    newRandomImage[2] = generateRandomNumber();
+  }
+  currentImages[2] = newRandomImage[2];
+
+  var displayIndex0 = currentImages[0];
+  image1.src = 'img/' + paths[displayIndex0];
+
+  var displayIndex1 = currentImages[1];
+  image2.src = 'img/' + paths[displayIndex1];
+
+  var displayIndex2 = currentImages[2];
+  image3.src = 'img/' + paths[displayIndex2];
 }
 
 
 
+
+
+
+function generateRandomNumber() {
+  return Math.floor(Math.random() * paths.length);
+}
+
+
+/*
 
 function changePicture1() {
 
   var image1 = document.getElementById('image1');
-  var randomIndex = generateRandomNumber();
+  var newRandomImage = generateRandomNumber();
 
-  while (displayIndex === randomIndex) {
-    randomIndex = generateRandomNumber();
+  while ( newRandomImage = randomImage[0] || displayIndex === randomImage[0]) {
+    newRandomImage = generateRandomNumber();
   }
-  displayIndex = randomIndex;
-  image1.src = 'img/' + paths[randomIndex];
-  threeThings[0] = displayIndex;
-  //console.log(threeThings);
-
-  function generateRandomNumber() {
-    return Math.floor(Math.random() * paths.length);
-  }
+  randomImage[0] = newRandomImage;
+  image1.src = 'img/' + paths[newRandomImage];
 }
+
 
 
 
 
 function changePicture2() {
   var image2 = document.getElementById('image2');
-  var randomIndex = generateRandomNumber();
+  randomImage[1] = generateRandomNumber();
 
-  while (displayIndex === randomIndex || threeThings[1] === randomIndex) {
-    randomIndex = generateRandomNumber();
+  while (randomImage[1] === randomImage[0]) {
+    randomImage[1] = generateRandomNumber();
   }
 
-  displayIndex = randomIndex;
-  image2.src = 'img/' + paths[randomIndex];
-  threeThings[1] = displayIndex;
-  //console.log(threeThings);
-
-  function generateRandomNumber() {
-    return Math.floor(Math.random() * paths.length);
-  }
+  displayIndex = randomImage[1];
+  image2.src = 'img/' + paths[displayIndex];
+  //console.log(randomImage);
 }
 
 
 function changePicture3() {
   var image3 = document.getElementById('image3');
-  var randomIndex = generateRandomNumber();
+  randomImage[2] = generateRandomNumber();
 
-  while (displayIndex === randomIndex || threeThings[2] === randomIndex || threeThings[2] === threeThings[1] ) {
-    randomIndex = generateRandomNumber();
+  while (randomImage[2] === randomImage[0] || randomImage[2] === randomImage[1] ) {
+    randomImage[2] = generateRandomNumber();
   }
 
-  displayIndex = randomIndex;
-  image3.src = 'img/' + paths[randomIndex];
-  threeThings[2] = displayIndex;
-  //console.log(threeThings);
-
-
-  function generateRandomNumber() {
-    return Math.floor(Math.random() * paths.length);
-  }
+  displayIndex = randomImage[2];
+  image3.src = 'img/' + paths[displayIndex];
 }
+
+*/
