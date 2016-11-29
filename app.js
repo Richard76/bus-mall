@@ -1,20 +1,5 @@
 'use strict';
 
-
-/*
-var pic1 = new Picture('bag.jpg', 'one');
-var pic2 = new Picture('banana.jpg', 'two');
-var pic3 = new Picture('bathroom.jpg', 'three');
-
-
-function Picture(url, id) {
-  this.url = url;
-  this.id = id;
-}
-*/
-
-
-
 var paths = [
   'bag.jpg' , 'banana.jpg' , 'bathroom.jpg', 'boots.jpg',
   'breakfast.jpg' , 'bubblegum.jpg' , 'chair.jpg' , 'cthulhu.jpg',
@@ -27,9 +12,7 @@ var items = [];
 var currentImages = [0, 1, 2];
 var newRandomImage = [, , ];
 var clickNumber = 0;
-
-
-
+var timesClicked = [];
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -39,6 +22,7 @@ for(var i = 0; i < paths.length; i++) {
 function ItemImage(path) {
   this.path = 'img/' + path;
   this.clicked = 0;
+  this.shown = 0;
 }
 
 
@@ -52,11 +36,13 @@ displayArea3.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
   var targetString = event.target.src;
-  var targetPath = targetString.split('images')[1];
-  var itemPath;
+  var targetPath = targetString.split('/img/')[1];
+  //console.log('targetPath: ' + targetPath);
 
+  var itemPath;
   for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('img')[1];
+    itemPath = items[i].path.split('img/')[1];
+    //console.log('itemPath: ' + itemPath);
     if (itemPath === targetPath) {
       items[i].clicked += 1;
     }
@@ -64,7 +50,13 @@ function clickHandler(event) {
   updatePictures();
 
   clickNumber++;
-  console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
+  //console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
+
+  for (var j = 0; j < items.length; j++) {
+    console.log('item ' + j + ' clicked: ' + items[j].clicked + ' times');
+    //timesClicked[j].push(items[j].clicked);
+    //console.log(items.clicked);
+  }
 }
 
 function updatePictures() {
