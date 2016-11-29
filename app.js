@@ -28,22 +28,6 @@ var currentImages = [0, 1, 2];
 var newRandomImage = [, , ];
 var clickNumber = 0;
 
-var timesImageDisplayed = [
-  1, 1, 1, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0
-];
-
-
-var timesImageClicked = [
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0
-];
 
 
 
@@ -78,12 +62,9 @@ function clickHandler(event) {
     }
   }
   updatePictures();
-  //changePicture1();
-  //changePicture2();
-  //changePicture3();
+
   clickNumber++;
   console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
-  console.log('times imagages displayed: ' + clickNumber + '  ==> ' + timesImageDisplayed);
 }
 
 function updatePictures() {
@@ -94,18 +75,29 @@ function updatePictures() {
   newRandomImage[1] = generateRandomNumber();
   newRandomImage[2] = generateRandomNumber();
 
-  while ( newRandomImage[0] === currentImages[0] ) {
+  while (
+    newRandomImage[0] === currentImages[0] ||
+    newRandomImage[0] === currentImages[1] ||
+    newRandomImage[0] === currentImages[2] ) {
     newRandomImage[0] = generateRandomNumber();
   }
   currentImages[0] = newRandomImage[0];
 
-  while ( newRandomImage[1] === currentImages[1] || newRandomImage[1] === newRandomImage[0]) {
+  while (
+    newRandomImage[1] === currentImages[0] ||
+    newRandomImage[1] === currentImages[1] ||
+    newRandomImage[1] === currentImages[2] ||
+    newRandomImage[1] === newRandomImage[0]) {
     newRandomImage[1] = generateRandomNumber();
   }
   currentImages[1] = newRandomImage[1];
-  //timesImageDisplayed.currentImages[1]++;
 
-  while (newRandomImage[2] === currentImages[2] || newRandomImage[2] === newRandomImage[1] || newRandomImage[2] === newRandomImage[0] ) {
+  while (
+    newRandomImage[2] === currentImages[0] ||
+    newRandomImage[2] === currentImages[1] ||
+    newRandomImage[2] === currentImages[2] ||
+    newRandomImage[2] === newRandomImage[0] ||
+    newRandomImage[2] === newRandomImage[1] ) {
     newRandomImage[2] = generateRandomNumber();
   }
   currentImages[2] = newRandomImage[2];
@@ -130,50 +122,3 @@ function updatePictures() {
 function generateRandomNumber() {
   return Math.floor(Math.random() * paths.length);
 }
-
-
-/*
-
-function changePicture1() {
-
-  var image1 = document.getElementById('image1');
-  var newRandomImage = generateRandomNumber();
-
-  while ( newRandomImage = randomImage[0] || displayIndex === randomImage[0]) {
-    newRandomImage = generateRandomNumber();
-  }
-  randomImage[0] = newRandomImage;
-  image1.src = 'img/' + paths[newRandomImage];
-}
-
-
-
-
-
-function changePicture2() {
-  var image2 = document.getElementById('image2');
-  randomImage[1] = generateRandomNumber();
-
-  while (randomImage[1] === randomImage[0]) {
-    randomImage[1] = generateRandomNumber();
-  }
-
-  displayIndex = randomImage[1];
-  image2.src = 'img/' + paths[displayIndex];
-  //console.log(randomImage);
-}
-
-
-function changePicture3() {
-  var image3 = document.getElementById('image3');
-  randomImage[2] = generateRandomNumber();
-
-  while (randomImage[2] === randomImage[0] || randomImage[2] === randomImage[1] ) {
-    randomImage[2] = generateRandomNumber();
-  }
-
-  displayIndex = randomImage[2];
-  image3.src = 'img/' + paths[displayIndex];
-}
-
-*/
