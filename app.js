@@ -38,22 +38,27 @@ displayArea2.addEventListener('click', clickHandler);
 displayArea3.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
-  clickNumber++;
-  console.log('after click number: ' + clickNumber + ':');
-  var targetString = event.target.src;
-  var targetPath = targetString.split('/img/')[1];
 
-  var itemPath;
-  for (var i = 0; i < items.length; i++) {
-    itemPath = items[i].path.split('img/')[1];
-    if (itemPath === targetPath) {
-      items[i].clicked += 1;
-    }
+  if (clickNumber >= 25) {
+    updateChart();
   }
+  else {
+    clickNumber++;
+    console.log('after click number: ' + clickNumber + ':');
+    var targetString = event.target.src;
+    var targetPath = targetString.split('/img/')[1];
 
-  updateTimesClicked();
-  updatePictures();
-  updateChart();
+    var itemPath;
+    for (var i = 0; i < items.length; i++) {
+      itemPath = items[i].path.split('img/')[1];
+      if (itemPath === targetPath) {
+        items[i].clicked += 1;
+      }
+    }
+
+    updateTimesClicked();
+    updatePictures();
+  }
 
   //return timesClicked;
 }
