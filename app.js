@@ -1,5 +1,6 @@
 'use strict';
 
+
 var paths = [
   'bag.jpg' , 'banana.jpg' , 'bathroom.jpg', 'boots.jpg',
   'breakfast.jpg' , 'bubblegum.jpg' , 'chair.jpg' , 'cthulhu.jpg',
@@ -10,12 +11,11 @@ var paths = [
 
 var items = [];
 var currentImages = [0, 1, 2];
-var newRandomImage = [, , ];
+
+var newRandomImage = [ , , ];
 var clickNumber = 0;
 var timesClickedArray = [];
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-//];
+
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -28,7 +28,6 @@ function ItemImage(path) {
   this.shown = 0;
 }
 
-
 var displayArea1 = document.getElementById('image1');
 var displayArea2 = document.getElementById('image2');
 var displayArea3 = document.getElementById('image3');
@@ -36,6 +35,8 @@ var displayArea3 = document.getElementById('image3');
 displayArea1.addEventListener('click', clickHandler);
 displayArea2.addEventListener('click', clickHandler);
 displayArea3.addEventListener('click', clickHandler);
+
+
 
 function clickHandler(event) {
 
@@ -55,12 +56,9 @@ function clickHandler(event) {
         items[i].clicked += 1;
       }
     }
-
     updateTimesClicked();
     updatePictures();
   }
-
-  //return timesClicked;
 }
 
 function updatePictures() {
@@ -134,7 +132,7 @@ function updateChart() {
   var data = timesClickedArray;
 
   var ctx = document.getElementById('myChart');
-  var myChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labels,
