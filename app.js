@@ -12,7 +12,7 @@ var items = [];
 var currentImages = [0, 1, 2];
 var newRandomImage = [, , ];
 var clickNumber = 0;
-var timesClicked = [];
+var timesClickedArray = [];
 //  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 //  0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 //];
@@ -38,50 +38,35 @@ displayArea2.addEventListener('click', clickHandler);
 displayArea3.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
+  clickNumber++;
+  console.log('after click number: ' + clickNumber + ':');
   var targetString = event.target.src;
   var targetPath = targetString.split('/img/')[1];
-  //console.log('targetPath: ' + targetPath);
 
   var itemPath;
   for (var i = 0; i < items.length; i++) {
     itemPath = items[i].path.split('img/')[1];
-    //console.log('itemPath: ' + itemPath);
     if (itemPath === targetPath) {
       items[i].clicked += 1;
-      //timesClicked[0] += 1;
-      //console.log(items[0].clicked);
-      //timesClicked[i] += 1;
-      //console.log('timesClicked array: ' + timesClicked);
     }
   }
 
-  timesClicked = [
+  var timesClicked = [
     items[0].clicked, items[1].clicked, items[2].clicked, items[3].clicked, items[4].clicked,
     items[5].clicked, items[6].clicked, items[7].clicked, items[8].clicked, items[9].clicked,
     items[10].clicked, items[11].clicked, items[12].clicked, items[13].clicked, items[14].clicked,
     items[15].clicked, items[16].clicked, items[17].clicked, items[18].clicked, items[19].clicked
   ];
-  console.log(timesClicked);
+  console.log('Times clicked array: ' + timesClicked);
+  timesClickedArray = timesClicked;
 
   updatePictures();
 
-  clickNumber++;
-  console.log('after click number: ' + clickNumber + ':');
-
-  //for (var j = 0; j < items.length; j++) {
-    //console.log('item ' + j + ' clicked: ' + items[j].clicked + ' times');
-    //timesClicked.items[j].clicked = timesClicked.items[j].clicked + 1;
-  //}
-  //console.log(timesClicked);
-  //timesClicked[j].push(items[j].clicked);
-  //console.log(items.clicked);
-  return timesClicked;
+  //return timesClicked;
 }
 
 function updatePictures() {
-//  var image1 = document.getElementById('image1');
-//  var image2 = document.getElementById('image2');
-//  var image3 = document.getElementById('image3');
+
   newRandomImage[0] = generateRandomNumber();
   newRandomImage[1] = generateRandomNumber();
   newRandomImage[2] = generateRandomNumber();
@@ -122,7 +107,6 @@ function updatePictures() {
   var displayIndex2 = currentImages[2];
   image3.src = 'img/' + paths[displayIndex2];
 
-
 }
 
 
@@ -131,10 +115,12 @@ function generateRandomNumber() {
 }
 
 
-var labels = paths;
-var data = timesClicked;
+
 
 // Chart Stuff
+
+var labels = paths;
+var data = timesClickedArray;
 
 var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
