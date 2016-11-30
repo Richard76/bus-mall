@@ -1,5 +1,7 @@
 'use strict';
 
+var clicksBeforeChartShown = 25; // should be 25
+
 var paths = [
   'bag.jpg' , 'banana.jpg' , 'bathroom.jpg', 'boots.jpg',
   'breakfast.jpg' , 'bubblegum.jpg' , 'chair.jpg' , 'cthulhu.jpg',
@@ -9,13 +11,30 @@ var paths = [
 ];
 
 var items = [];
+var chartData = [];
 var currentImages = [0, 1, 2];
-var newRandomImage = [, , ];
+
+var newRandomImage = [ , , ];
 var clickNumber = 0;
 var timesClickedArray = [];
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-//];
+
+
+// local storage Stuff
+function updateLocalStorage() {
+  var localTimesClickedArrayJSON = JSON.stringify(timesClickedArray);
+  console.log('Local Times Clicked Array: ' + localTimesClickedArrayJSON);
+
+  localStorage.setItem('timesClickedArray', localTimesClickedArrayJSON);
+
+  var storedItemsString = localStorage.getItem('timesClickedArray');
+  console.log('Stored Items String: ' + storedItemsString);
+
+  var chartData = JSON.parse(storedItemsString);
+  console.log('Chart Data: ' + chartData);
+  return chartData;
+}
+
+
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -28,7 +47,6 @@ function ItemImage(path) {
   this.shown = 0;
 }
 
-
 var displayArea1 = document.getElementById('image1');
 var displayArea2 = document.getElementById('image2');
 var displayArea3 = document.getElementById('image3');
@@ -37,9 +55,12 @@ displayArea1.addEventListener('click', clickHandler);
 displayArea2.addEventListener('click', clickHandler);
 displayArea3.addEventListener('click', clickHandler);
 
+
+
 function clickHandler(event) {
 
-  if (clickNumber >= 25) {
+  if (clickNumber >= clicksBeforeChartShown) {
+    chartData = updateLocalStorage();
     updateChart();
   }
   else {
@@ -55,12 +76,10 @@ function clickHandler(event) {
         items[i].clicked += 1;
       }
     }
-
     updateTimesClicked();
     updatePictures();
-  }
 
-  //return timesClicked;
+  }
 }
 
 function updatePictures() {
@@ -131,10 +150,12 @@ function updateTimesClicked() {
 function updateChart() {
   var labels = paths;
   console.log(timesClickedArray);
-  var data = timesClickedArray;
+
+  //var data = timesClickedArray;
+  var data = chartData;
 
   var ctx = document.getElementById('myChart');
-  var myChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labels,
