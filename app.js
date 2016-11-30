@@ -51,16 +51,9 @@ function clickHandler(event) {
     }
   }
 
-  var timesClicked = [
-    items[0].clicked, items[1].clicked, items[2].clicked, items[3].clicked, items[4].clicked,
-    items[5].clicked, items[6].clicked, items[7].clicked, items[8].clicked, items[9].clicked,
-    items[10].clicked, items[11].clicked, items[12].clicked, items[13].clicked, items[14].clicked,
-    items[15].clicked, items[16].clicked, items[17].clicked, items[18].clicked, items[19].clicked
-  ];
-  console.log('Times clicked array: ' + timesClicked);
-  timesClickedArray = timesClicked;
-
+  updateTimesClicked();
   updatePictures();
+  updateChart();
 
   //return timesClicked;
 }
@@ -114,48 +107,90 @@ function generateRandomNumber() {
   return Math.floor(Math.random() * paths.length);
 }
 
+function updateTimesClicked() {
+  var timesClicked = [
+    items[0].clicked, items[1].clicked, items[2].clicked, items[3].clicked, items[4].clicked,
+    items[5].clicked, items[6].clicked, items[7].clicked, items[8].clicked, items[9].clicked,
+    items[10].clicked, items[11].clicked, items[12].clicked, items[13].clicked, items[14].clicked,
+    items[15].clicked, items[16].clicked, items[17].clicked, items[18].clicked, items[19].clicked
+  ];
+  console.log('Times clicked array: ' + timesClicked);
+  timesClickedArray = timesClicked;
+}
+
 
 
 
 // Chart Stuff
 
-var labels = paths;
-var data = timesClickedArray;
+function updateChart() {
+  var labels = paths;
+  console.log(timesClickedArray);
+  var data = timesClickedArray;
 
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: labels,
-    datasets: [{
-      data: data,
-      label: '# of Clicks',
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 2
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero:true
-        }
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        label: '# of Clicks',
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)'
+        ],
+        borderWidth: 2
       }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
     }
-  }
-});
+  });
+}
