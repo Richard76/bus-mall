@@ -1,5 +1,6 @@
 'use strict';
 
+var clicksBeforeChartShown = 25; // should be 25
 
 var paths = [
   'bag.jpg' , 'banana.jpg' , 'bathroom.jpg', 'boots.jpg',
@@ -10,11 +11,29 @@ var paths = [
 ];
 
 var items = [];
+var chartData = [];
 var currentImages = [0, 1, 2];
 
 var newRandomImage = [ , , ];
 var clickNumber = 0;
 var timesClickedArray = [];
+
+
+// local storage Stuff
+function updateLocalStorage() {
+  var localTimesClickedArrayJSON = JSON.stringify(timesClickedArray);
+  console.log('Local Times Clicked Array: ' + localTimesClickedArrayJSON);
+
+  localStorage.setItem('timesClickedArray', localTimesClickedArrayJSON);
+
+  var storedItemsString = localStorage.getItem('timesClickedArray');
+  console.log('Stored Items String: ' + storedItemsString);
+
+  var chartData = JSON.parse(storedItemsString);
+  console.log('Chart Data: ' + chartData);
+  return chartData;
+}
+
 
 
 for(var i = 0; i < paths.length; i++) {
@@ -40,7 +59,8 @@ displayArea3.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
 
-  if (clickNumber >= 25) {
+  if (clickNumber >= clicksBeforeChartShown) {
+    chartData = updateLocalStorage();
     updateChart();
   }
   else {
@@ -58,6 +78,7 @@ function clickHandler(event) {
     }
     updateTimesClicked();
     updatePictures();
+
   }
 }
 
@@ -129,7 +150,9 @@ function updateTimesClicked() {
 function updateChart() {
   var labels = paths;
   console.log(timesClickedArray);
-  var data = timesClickedArray;
+
+  //var data = timesClickedArray;
+  var data = chartData;
 
   var ctx = document.getElementById('myChart');
   new Chart(ctx, {
