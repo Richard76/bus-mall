@@ -11,8 +11,11 @@ var paths = [
 var items = [];
 var currentImages = [0, 1, 2];
 var newRandomImage = [, , ];
-//var clickNumber = 0;
-//var timesClicked = [];
+var clickNumber = 0;
+var timesClicked = [];
+//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//];
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -45,18 +48,34 @@ function clickHandler(event) {
     //console.log('itemPath: ' + itemPath);
     if (itemPath === targetPath) {
       items[i].clicked += 1;
+      //timesClicked[0] += 1;
+      //console.log(items[0].clicked);
+      //timesClicked[i] += 1;
+      //console.log('timesClicked array: ' + timesClicked);
     }
   }
+
+  timesClicked = [
+    items[0].clicked, items[1].clicked, items[2].clicked, items[3].clicked, items[4].clicked,
+    items[5].clicked, items[6].clicked, items[7].clicked, items[8].clicked, items[9].clicked,
+    items[10].clicked, items[11].clicked, items[12].clicked, items[13].clicked, items[14].clicked,
+    items[15].clicked, items[16].clicked, items[17].clicked, items[18].clicked, items[19].clicked
+  ];
+  console.log(timesClicked);
+
   updatePictures();
 
   clickNumber++;
-  //console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
+  console.log('after click number: ' + clickNumber + ':');
 
-  for (var j = 0; j < items.length; j++) {
-    console.log('item ' + j + ' clicked: ' + items[j].clicked + ' times');
-    //timesClicked[j].push(items[j].clicked);
-    //console.log(items.clicked);
-  }
+  //for (var j = 0; j < items.length; j++) {
+    //console.log('item ' + j + ' clicked: ' + items[j].clicked + ' times');
+    //timesClicked.items[j].clicked = timesClicked.items[j].clicked + 1;
+  //}
+  //console.log(timesClicked);
+  //timesClicked[j].push(items[j].clicked);
+  //console.log(items.clicked);
+  return timesClicked;
 }
 
 function updatePictures() {
@@ -112,7 +131,8 @@ function generateRandomNumber() {
 }
 
 
-
+var labels = paths;
+var data = timesClicked;
 
 // Chart Stuff
 
@@ -120,9 +140,9 @@ var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Richard'],
+    labels: labels,
     datasets: [{
-      data: [1, 4, 3, 5, 2, 3, 7],
+      data: data,
       label: '# of Clicks',
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
