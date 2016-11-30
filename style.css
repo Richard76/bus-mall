@@ -22,3 +22,9 @@ div:after {
     display: inline-block;
     width: 100%;
 }
+
+
+#chart {
+  width: 600px;
+  margin: 0 auto;
+}

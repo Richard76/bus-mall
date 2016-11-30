@@ -12,7 +12,10 @@ var items = [];
 var currentImages = [0, 1, 2];
 var newRandomImage = [, , ];
 var clickNumber = 0;
-var timesClicked = [];
+var timesClickedArray = [];
+//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+//  0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//];
 
 for(var i = 0; i < paths.length; i++) {
   var newItem = new ItemImage(paths[i]);
@@ -35,34 +38,35 @@ displayArea2.addEventListener('click', clickHandler);
 displayArea3.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
+  clickNumber++;
+  console.log('after click number: ' + clickNumber + ':');
   var targetString = event.target.src;
   var targetPath = targetString.split('/img/')[1];
-  //console.log('targetPath: ' + targetPath);
 
   var itemPath;
   for (var i = 0; i < items.length; i++) {
     itemPath = items[i].path.split('img/')[1];
-    //console.log('itemPath: ' + itemPath);
     if (itemPath === targetPath) {
       items[i].clicked += 1;
     }
   }
+
+  var timesClicked = [
+    items[0].clicked, items[1].clicked, items[2].clicked, items[3].clicked, items[4].clicked,
+    items[5].clicked, items[6].clicked, items[7].clicked, items[8].clicked, items[9].clicked,
+    items[10].clicked, items[11].clicked, items[12].clicked, items[13].clicked, items[14].clicked,
+    items[15].clicked, items[16].clicked, items[17].clicked, items[18].clicked, items[19].clicked
+  ];
+  console.log('Times clicked array: ' + timesClicked);
+  timesClickedArray = timesClicked;
+
   updatePictures();
 
-  clickNumber++;
-  //console.log('click number: ' + clickNumber + '  ==> ' + currentImages);
-
-  for (var j = 0; j < items.length; j++) {
-    console.log('item ' + j + ' clicked: ' + items[j].clicked + ' times');
-    //timesClicked[j].push(items[j].clicked);
-    //console.log(items.clicked);
-  }
+  //return timesClicked;
 }
 
 function updatePictures() {
-//  var image1 = document.getElementById('image1');
-//  var image2 = document.getElementById('image2');
-//  var image3 = document.getElementById('image3');
+
   newRandomImage[0] = generateRandomNumber();
   newRandomImage[1] = generateRandomNumber();
   newRandomImage[2] = generateRandomNumber();
@@ -103,14 +107,55 @@ function updatePictures() {
   var displayIndex2 = currentImages[2];
   image3.src = 'img/' + paths[displayIndex2];
 
-
 }
-
-
-
-
 
 
 function generateRandomNumber() {
   return Math.floor(Math.random() * paths.length);
 }
+
+
+
+
+// Chart Stuff
+
+var labels = paths;
+var data = timesClickedArray;
+
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [{
+      data: data,
+      label: '# of Clicks',
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 2
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    }
+  }
+});
